@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'users',
     'rest_framework',  
     'django_filters',
+    'debug_toolbar',
     
 ]
 
@@ -53,6 +54,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'project.urls'
@@ -129,3 +131,8 @@ STATIC_URL = 'static/'
 # Custom User: 
 AUTH_USER_MODEL = 'users.User'
 
+
+
+INTERNAL_IPS = [
+    '127.0.0.1'
+]

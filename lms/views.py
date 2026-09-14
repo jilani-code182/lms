@@ -33,7 +33,7 @@ class CategoryAPI(ModelViewSet):
     
 # Course API: 
 class CourseAPI(ModelViewSet):
-    queryset = Course.objects.all()
+    queryset = Course.objects.select_related('category', 'instructor').all()
     serializer_class = CourseSerializer
     
     #Pagination
@@ -61,7 +61,7 @@ class CourseAPI(ModelViewSet):
     
 #  Enrollment API: 
 class EnrollmentAPI(ModelViewSet):
-    queryset = Enrollment.objects.all()
+    queryset = Enrollment.objects.select_related('course', 'student').all()
     serializer_class = EnrollmentSerializer
     
     #Pagination
@@ -77,7 +77,7 @@ class EnrollmentAPI(ModelViewSet):
     
 # Assignment API: 
 class AssignmentAPI(ModelViewSet):
-    queryset = Assignment.objects.all()
+    queryset = Assignment.objects.select_related('course').all()
     serializer_class = AssignmentSerializer
     
     #Pagination
@@ -93,7 +93,7 @@ class AssignmentAPI(ModelViewSet):
     
 # Submission API: 
 class SubmissionAPI(ModelViewSet):
-    queryset = Submission.objects.all()
+    queryset = Submission.objects.select_related('assignment', 'student').all()
     serializer_class = SubmissionSerializer
     
     #Pagination
@@ -109,7 +109,7 @@ class SubmissionAPI(ModelViewSet):
     
 # Sponsorship API: 
 class SponsorshipAPI(ModelViewSet):
-    queryset = Sponsorship.objects.all()
+    queryset = Sponsorship.objects.select_related('student', 'course', 'sponsor').all()
     serializer_class = SponsorshipSerializer
     
     #Pagination
@@ -125,7 +125,7 @@ class SponsorshipAPI(ModelViewSet):
 
 # Payment API: 
 class PaymentAPI(ModelViewSet):
-    queryset = Payment.objects.all()
+    queryset = Payment.objects.select_related('course', 'payer').all()
     serializer_class = PaymentSerializer
     
     #Pagination
@@ -141,7 +141,7 @@ class PaymentAPI(ModelViewSet):
 
 # Notification API: 
 class NotificationAPI(ModelViewSet):
-    queryset = Notification.objects.all()
+    queryset = Notification.objects.select_related('sender', 'receiver').all()
     serializer_class = NotificationSerializer
     
     #Pagination

@@ -1,5 +1,6 @@
 from django.urls import path 
 from rest_framework import routers
+from debug_toolbar.toolbar import debug_toolbar_urls
 
 from .views import *
 
@@ -18,6 +19,6 @@ router.register('manage-user', UserAPI)
 
 urlpatterns = [
     
-] + router.urls
+] + router.urls + debug_toolbar_urls()
 
 
