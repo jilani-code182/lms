@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.filters import SearchFilter, OrderingFilter
 from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.permissions import IsAuthenticated, IsAdminUser, DjangoModelPermissions
 
 from .pagination import *
 from .models import *
@@ -28,6 +29,9 @@ class CategoryAPI(ModelViewSet):
     search_fields = ['name']
     ordering_fields = ['id', 'name']
     
+    #Permission 
+    permission_classes = [DjangoModelPermissions]
+    
     
     
     
@@ -43,6 +47,9 @@ class CourseAPI(ModelViewSet):
     filter_backends = [DjangoFilterBackend, OrderingFilter]
     filterset_class = CourseFilter                                                  # Using custom filter to have 'less than' and 'greater than' feature for 'price' field
     ordering_fields = ['id', 'price']
+    
+    #Permission
+    permission_classes = [DjangoModelPermissions]
     
     
     # Overiding destroy method to handle protected relationship with course
@@ -72,9 +79,12 @@ class EnrollmentAPI(ModelViewSet):
     filterset_class = EnrollmentFilter                                  # Using custom filter to implement 'less than' and 'greater than' feature for 'progress' field
     ordering_fields = ['id', 'progress']
     
+    #Permission
+    permission_classes = [DjangoModelPermissions]
     
     
-    
+
+
 # Assignment API: 
 class AssignmentAPI(ModelViewSet):
     queryset = Assignment.objects.select_related('course').all()
@@ -87,6 +97,9 @@ class AssignmentAPI(ModelViewSet):
     filter_backends = [DjangoFilterBackend, OrderingFilter]
     filterset_class = AssignmentFilter                                          # Using custom filter to have 'less than' and 'greater than' feature for 'total_marks' and 'deadline' field
     ordering_fields = ['id', 'total_marks']
+    
+    #Permission
+    permission_classes = [DjangoModelPermissions]
 
     
     
@@ -103,6 +116,9 @@ class SubmissionAPI(ModelViewSet):
     filter_backends = [DjangoFilterBackend, OrderingFilter]
     filterset_class = SubmissionFilter                                              # Using custom filter to have 'less than' and 'greater than' feature for 'marks_obtained' field
     ordering_fields = ['id', 'marks_obtained']
+    
+    #Permission
+    permission_classes = [DjangoModelPermissions]
 
     
     
@@ -120,6 +136,9 @@ class SponsorshipAPI(ModelViewSet):
     filterset_class = SponsorshipFilter                                        # Using custom filter to have 'less than' and 'greater than' feature for 'amount' field
     ordering_fields = ['id', 'amount']
     
+    #Permission
+    permission_classes = [DjangoModelPermissions]
+    
     
     
 
@@ -135,6 +154,9 @@ class PaymentAPI(ModelViewSet):
     filter_backends = [DjangoFilterBackend, OrderingFilter]
     filterset_fields = ['course', 'payer', 'payment_status']
     ordering_fields = ['id', 'amount']
+    
+    #Permission
+    permission_classes = [DjangoModelPermissions]
     
     
     
@@ -153,6 +175,9 @@ class NotificationAPI(ModelViewSet):
     filterset_fields = ['sender', 'notification_type', 'is_read']
     ordering_fields = ['id', 'sent_at']
     
+    #Permission
+    permission_classes = [DjangoModelPermissions]
+    
     
     
        
@@ -168,6 +193,10 @@ class UserAPI(ModelViewSet):
     filter_backends = [SearchFilter, DjangoFilterBackend, OrderingFilter]
     filterset_class = UserFilter                                                                        # Using custom filter to have 'less than' and 'greater than' feature for 'dob' field
     ordering_fields = ['id', 'username', 'dob'] 
+    
+    #Permission
+    permission_classes = [DjangoModelPermissions]
+    
     
 
     # Overiding destroy method to handle protected relationships 
