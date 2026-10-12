@@ -17,9 +17,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+# for jwt authentication
+from rest_framework_simplejwt.views import TokenRefreshView, TokenObtainPairView
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/', include('lms.urls')),
+    path('api/token/', TokenObtainPairView.as_view()),
+    path('api/token/refresh/', TokenRefreshView.as_view()),
+    
 ]
 
 

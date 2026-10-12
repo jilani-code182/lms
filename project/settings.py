@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django_filters',
     'debug_toolbar',
     'rest_framework.authtoken',
+  
     
 ]
 
@@ -87,9 +88,6 @@ DATABASES = {
     "default" : { "ENGINE" : "django.db.backends.postgresql", "NAME":"lms2", "HOST":"localhost", "PORT":"5432", "USER":"jilani", "PASSWORD":"123"}
     
 }
-
-
-
 
 
 # Password validation
@@ -140,9 +138,15 @@ INTERNAL_IPS = [
 
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES' : ['rest_framework.authentication.TokenAuthentication', ], 
-    #'DEFAULT_PERMISSION_CLASSES': ['rest_framework.permissions.IsAuthenticated'], 
-    
-    
+    'DEFAULT_AUTHENTICATION_CLASSES' : ['rest_framework_simplejwt.authentication.JWTAuthentication'], 
+    'DEFAULT_PERMISSION_CLASSES': ['rest_framework.permissions.IsAuthenticated'],  
 }
 
+
+# setting jwt token expiry time duration
+
+from datetime import timedelta
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME' : timedelta(minutes=15),
+    'REFRESH_TOKEN_LIFETIME' : timedelta(days=1)
+}
